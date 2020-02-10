@@ -1,0 +1,17 @@
+package browserTest.POMWithPageFactory;
+
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class ChromeDriverManager extends WebDriverManager{
+
+	
+	@Override
+	public void createWebDriver() {
+		ChromeOptions options = new ChromeOptions();
+		
+		this.driver = new ChromeDriver(options);
+	}
+}

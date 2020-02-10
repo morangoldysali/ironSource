@@ -1,0 +1,53 @@
+package browserTest.pages;
+
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class telAvivJobs {
+
+	WebDriver driver;
+	
+	public telAvivJobs(WebDriver driver){
+		this.driver = driver;
+		
+	}
+	public int getPositionsCounter() {
+		WebElement num = null;
+		
+		try {
+			num = driver.findElement(By.xpath("//div[contains(text(), 'open positions')]"));
+			
+		}
+		catch (Exception e) {
+			System.out.print(e);
+			System.out.print("Cant Find Objct - openposisions on telAviv Jobs Page");
+		}
+		
+		String value = num.getText();
+		String[] str = value.split(" ");
+		
+		return Integer.parseInt(str[0]);
+	}
+	public int getNumOfPositions() {
+		java.util.List<WebElement> seeMore;
+		
+		seeMore = driver.findElements(By.className("load-more"));
+		
+		while (seeMore.size() > 0) {
+			seeMore.get(0).click();
+		    seeMore = driver.findElements(By.className("load-more"));
+		}
+		
+		int numOfJobs = 0;
+		try {
+			numOfJobs = driver.findElements(By.className("career-item")).size();
+		}catch (Exception e) {
+			System.out.print(e);
+			System.out.print("Cant Find Objct - carrer-item on telAviv tel Aviv jobs Page");
+		}
+		return numOfJobs;
+	}
+
+}

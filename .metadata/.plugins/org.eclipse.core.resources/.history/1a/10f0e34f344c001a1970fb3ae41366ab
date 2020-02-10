@@ -1,0 +1,66 @@
+package browserTest;
+
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.*;
+
+import browserTest.POMWithPageFactory.DriverManager;
+import browserTest.POMWithPageFactory.DriverManagerFactory;
+import browserTest.POMWithPageFactory.DriverType;
+import browserTest.pages.jobsPage;
+import browserTest.pages.mainPage;
+import browserTest.pages.telAvivJobs;
+
+public class browserTest {
+	DriverManager driverManager;
+	WebDriver driver = null;
+	
+	@BeforeTest
+	public void setUpTest() {
+		driverManager = DriverManagerFactory.getDriverManager(DriverType.CHROME);
+		driver = driverManager.getWebDriver();
+		driver.get("https://company.ironsrc.com/");
+		Assert.assertEquals("https://company.ironsrc.com/", driver.getCurrentUrl());
+		
+		
+	
+	}
+	
+	@Test
+	public void checkNumOfJobs() {
+		
+		mainPage main = new mainPage(driver);
+		jobsPage jobs = new jobsPage(driver);
+		telAvivJobs localJobs = new telAvivJobs(driver);
+		main.clickOnJobs();
+		jobs.clickOnIsraelPositions();
+		ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
+		driver.switchTo().window(tabs.get(1)); //switches to new tab
+		String currentURL = driver.getCurrentUrl();
+		Assert.assertEquals("https://company.ironsrc.com/careers-tel-aviv/", currentURL);
+		driver.manage().timeouts().implicitlyWait(1,TimeUnit.MINUTES) ;
+		int numbystring = localJobs.getPositionsCounter();
+		int numOfRealPositions = localJobs.getNumOfPositions();
+		if (numOfRealPositions == numbystring)
+			System.out.print("Test passed! number of listed jobs: " + numbystring + ", number of actual jobs: " + numOfRealPositions);
+		else 
+			System.out.print("Test failed! number of listed jobs: " + numbystring + ", number of actual jobs: " + numOfRealPositions);
+		localJobs.compareNumAndJubs();
+		
+	}
+	
+
+
+	@AfterTest
+	public void tearDownTest() {
+		driver.close();
+		driver.quit();
+	}
+
+}
+

@@ -1,0 +1,27 @@
+package browserTest.pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class telAvivJobs {
+
+	WebDriver driver;
+	
+	public telAvivJobs(WebDriver driver){
+		this.driver = driver;
+	}
+	
+	public void compareNumAndJubs(int number) {
+		try {
+			WebElement num = driver.findElement(By.xpath("xpath = //*[contains(text(), 'open positions')]"));
+			num.getAttribute("col-md-4");
+		}
+		catch (Exception e) {
+			System.out.print("Cant Find Objct - openposisions on telAviv Jobs Page");
+		}
+		
+		
+		
+	}
+}

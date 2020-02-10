@@ -1,0 +1,17 @@
+package browserTest.pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class jobsPage {
+
+	WebDriver driver;
+	
+	public jobsPage(WebDriver driver){
+		this.driver = driver;
+	}
+	
+	public void clickOnIsraelPositions() {
+		driver.findElement(By.xpath("//a[text()='Yalla, let's go']")).click();
+	}
+}

@@ -1,0 +1,13 @@
+package browserTest.POMWithPageFactory;
+
+import org.openqa.selenium.firefox.FirefoxOptions;
+
+public class FireFoxDriverManager {
+
+	@Override
+	public void createWebDriver() {
+		FirefoxOptions options = new FirefoxOptions();
+		
+		this.driver = new ChromeDriver(options);
+}
+

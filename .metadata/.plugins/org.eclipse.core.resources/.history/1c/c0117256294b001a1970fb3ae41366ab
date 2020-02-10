@@ -1,0 +1,26 @@
+package browserTest.pages;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class jobsPage {
+
+	WebDriver driver;
+	
+	public jobsPage(WebDriver driver){
+		this.driver = driver;
+	}
+	
+	public void clickOnIsraelPositions() {
+		try {
+			driver.findElement(By.xpath("Xpath=//*[contains(text(),'here')]"));
+		}
+		catch (Exception e) {
+			System.out.print(e);
+			System.out.print("couldn't find the buttun Yalla, ltes go on Jobs page");
+		}
+	}
+}
